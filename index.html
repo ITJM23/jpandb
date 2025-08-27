@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JP&B Realty - Home</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* --- Global --- */
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:#f8f9fa;
+      color:#333;
+      scroll-behavior:smooth;
+    }
+    a {text-decoration:none; color:inherit;}
+    img {max-width:100%; border-radius:12px;}
+
+    /* --- Header --- */
+    header {
+      position:fixed; top:0; left:0; width:100%;
+      background:#111; color:#fff;
+      padding:1rem 2rem;
+      display:flex; justify-content:space-between; align-items:center;
+      z-index:1000; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    }
+    header .logo {color:#FFD600; font-size:1.5rem; font-weight:bold;}
+    nav a {
+      margin-left:1.5rem; font-weight:500; transition:color .3s;
+    }
+    nav a:hover, nav a.active {color:#FFD600;}
+
+    /* --- Hero --- */
+    .hero {
+      height:90vh;
+      background:url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center; color:#fff; position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:""; position:absolute; inset:0;
+      background:rgba(0,0,0,.55);
+      animation: gradientMove 10s ease-in-out infinite alternate;
+    }
+    @keyframes gradientMove {
+      from {background:rgba(0,0,0,.55);}
+      to {background:rgba(20,20,20,.7);}
+    }
+    .hero-content {position:relative; z-index:1; padding:1rem;}
+    .hero-content h1 {font-size:3rem; margin-bottom:1rem;}
+    .hero-content p {font-size:1.2rem; margin-bottom:2rem;}
+    .btn-primary {
+      background:#FFD600; color:#111; padding:.9rem 2rem;
+      border-radius:8px; font-weight:600; transition:all .3s;
+    }
+    .btn-primary:hover {background:#ffdf4d;}
+
+    /* --- Section Base --- */
+    section {padding:5rem 2rem;}
+    h2 {text-align:center; font-size:2rem; margin-bottom:2rem; color:#111;}
+
+    /* --- Featured Properties --- */
+    .properties {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:2rem;
+    }
+    .property-card {
+      background:#fff; border-radius:12px; overflow:hidden;
+      box-shadow:0 6px 16px rgba(0,0,0,0.1);
+      position:relative; transition:transform .3s;
+    }
+    .property-card:hover {transform:translateY(-6px);}
+    .property-card img {height:200px; width:100%; object-fit:cover;}
+    .property-content {padding:1.2rem;}
+    .property-card h3 {margin-bottom:.5rem;}
+    .property-card p {color:#555;}
+    .quick-view {
+      position:absolute; top:0; left:0; right:0; bottom:0;
+      background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center;
+      color:#FFD600; font-weight:600; font-size:1.2rem; opacity:0; transition:opacity .3s;
+    }
+    .property-card:hover .quick-view {opacity:1;}
+
+    /* --- About Section --- */
+    .about {
+      max-width:1100px; margin:auto; text-align:center; line-height:1.7;
+    }
+    .about h3 {color:#FFD600; margin-bottom:1rem;}
+    .about p {max-width:800px; margin:auto;}
+
+    /* --- Team --- */
+    .team {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;
+      max-width:1100px; margin:auto;
+    }
+    .team-member {
+      background:#fff; border-radius:12px; text-align:center;
+      padding:1.5rem; box-shadow:0 6px 16px rgba(0,0,0,0.1);
+      transition:transform .3s;
+    }
+    .team-member:hover {transform:translateY(-6px);}
+    .team-member img {width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover;}
+    .team-member h4 {margin:.5rem 0;}
+    .socials a {margin:0 .4rem; color:#555; transition:color .3s;}
+    .socials a:hover {color:#FFD600;}
+
+    /* --- Testimonials (Slider) --- */
+    .testimonials {background:#fff; padding:5rem 2rem;}
+    .testimonial-container {
+      max-width:800px; margin:auto; overflow:hidden; position:relative;
+    }
+    .testimonial-slide {
+      display:flex; transition:transform .6s ease-in-out;
+    }
+    .testimonial {
+      min-width:100%; text-align:center; padding:2rem;
+    }
+    .testimonial p {font-style:italic; margin-bottom:1rem;}
+    .testimonial h4 {color:#111;}
+    .testimonial-nav {
+      text-align:center; margin-top:1rem;
+    }
+    .testimonial-nav span {
+      display:inline-block; width:12px; height:12px; border-radius:50%;
+      background:#ddd; margin:0 .3rem; cursor:pointer; transition:background .3s;
+    }
+    .testimonial-nav span.active {background:#FFD600;}
+
+    /* --- Footer --- */
+    footer {
+      background:#111; color:#fff; text-align:center; padding:2rem;
+      margin-top:3rem;
+    }
+    footer .socials {margin:1rem 0;}
+    footer .socials a {margin:0 .5rem; color:#fff; transition:color .3s;}
+    footer .socials a:hover {color:#FFD600;}
+    .newsletter input {
+      padding:.7rem; border:none; border-radius:8px 0 0 8px; outline:none;
+    }
+    .newsletter button {
+      padding:.7rem 1rem; border:none; background:#FFD600; color:#111;
+      border-radius:0 8px 8px 0; cursor:pointer; transition:background .3s;
+    }
+    .newsletter button:hover {background:#ffdf4d;}
+
+    /* --- Responsive --- */
+    @media(max-width:768px){
+      .hero-content h1 {font-size:2.2rem;}
+      nav a {margin-left:1rem;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="logo">JP&B Realty</a>
+    <nav>
+      <a href="#home" class="active">Home</a>
+      <a href="listings.html">Listings</a>
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Find Your Dream Home with JP&B Realty</h1>
+      <p>Trusted Real Estate Partner in the Philippines</p>
+      <a href="listings.html" class="btn-primary">Browse Listings</a>
+    </div>
+  </section>
+
+  <!-- Properties -->
+  <section id="properties">
+    <h2>Featured Properties</h2>
+    <div class="properties">
+      <div class="property-card">
+        <img src="https://images.unsplash.com/photo-1560448075-bb485b067938?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="property-content">
+          <h3>Luxury Villa in Tagaytay</h3>
+          <p>₱25,000,000 - 5 Beds • 4 Baths</p>
+        </div>
+        <div class="quick-view">Quick View</div>
+      </div>
+      <div class="property-card">
+        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="property-content">
+          <h3>Modern Condo in BGC</h3>
+          <p>₱8,500,000 - 2 Beds • 2 Baths</p>
+        </div>
+        <div class="quick-view">Quick View</div>
+      </div>
+      <div class="property-card">
+        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="property-content">
+          <h3>Family Home in Quezon City</h3>
+          <p>₱12,000,000 - 4 Beds • 3 Baths</p>
+        </div>
+        <div class="quick-view">Quick View</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Us</h2>
+    <div class="about">
+      <h3>Our Mission</h3>
+      <p>At JP&B Realty, we are committed to helping families and individuals find their perfect home. Our team blends local expertise with integrity and passion, guiding clients through every step of the journey. Whether buying, selling, or investing, we deliver trustworthy service that builds long-term relationships.</p>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team">
+    <h2>Meet Our Team</h2>
+    <div class="team">
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+        <h4>Juan dela Cruz</h4>
+        <p>Senior Agent</p>
+        <div class="socials">
+          <a href="#">FB</a><a href="#">LI</a><a href="mailto:juan@example.com">✉</a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+        <h4>Maria Santos</h4>
+        <p>Broker</p>
+        <div class="socials">
+          <a href="#">FB</a><a href="#">LI</a><a href="mailto:maria@example.com">✉</a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="">
+        <h4>Pedro Ramirez</h4>
+        <p>Property Consultant</p>
+        <div class="socials">
+          <a href="#">FB</a><a href="#">LI</a><a href="mailto:pedro@example.com">✉</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial-container">
+      <div class="testimonial-slide">
+        <div class="testimonial">
+          <p>“JP&B Realty made buying our first home smooth and stress-free. Highly recommended!”</p>
+          <h4>- Angela & Mark</h4>
+        </div>
+        <div class="testimonial">
+          <p>“Professional, responsive, and truly cared about our needs. We found our dream condo thanks to them.”</p>
+          <h4>- David R.</h4>
+        </div>
+        <div class="testimonial">
+          <p>“Excellent service from start to finish. They treated us like family.”</p>
+          <h4>- The Cruz Family</h4>
+        </div>
+      </div>
+      <div class="testimonial-nav">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 JP&B Realty. All rights reserved.</p>
+    <div class="socials">
+      <a href="#">FB</a><a href="#">IG</a><a href="#">LI</a>
+    </div>
+    <div class="newsletter">
+      <input type="email" placeholder="Subscribe for updates"/>
+      <button>Join</button>
+    </div>
+  </footer>
+
+  <script>
+    // Active nav on scroll
+    const sections=document.querySelectorAll("section");
+    const navLinks=document.querySelectorAll("nav a");
+    window.addEventListener("scroll",()=>{
+      let current="";
+      sections.forEach(sec=>{
+        const top=window.scrollY;
+        if(top>=sec.offsetTop-100) current=sec.getAttribute("id");
+      });
+      navLinks.forEach(a=>{
+        a.classList.remove("active");
+        if(a.getAttribute("href")==="#"+current){a.classList.add("active");}
+      });
+    });
+
+    // Testimonial slider
+    const slides=document.querySelector(".testimonial-slide");
+    const dots=document.querySelectorAll(".testimonial-nav span");
+    let index=0;
+    function showSlide(i){
+      index=i;
+      slides.style.transform=`translateX(-${i*100}%)`;
+      dots.forEach(d=>d.classList.remove("active"));
+      dots[i].classList.add("active");
+    }
+    dots.forEach((dot,i)=>{dot.addEventListener("click",()=>showSlide(i));});
+    setInterval(()=>{showSlide((index+1)%dots.length);},5000);
+  </script>
+</body>
+</html>

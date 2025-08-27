@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — JP&B Realty</title>
+  <style>
+    :root {
+      --accent: #FFD600;
+      --bg: #f8f9fa;
+      --card: #ffffff;
+      --text: #111;
+      --muted: #555;
+      --radius: 12px;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    *{box-sizing:border-box;}
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: #111;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    header .brand img {
+      height: 38px;
+    }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    nav a.active {
+      color: var(--accent);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, rgba(255,214,0,0.15), rgba(255,255,255,0.8));
+      padding: 4rem 2rem;
+      display: flex;
+      justify-content: center;
+    }
+    .hero .inner {
+      max-width: 1100px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .hero .copy {
+      flex: 1;
+      min-width: 280px;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      margin: 0 0 12px;
+    }
+    .hero p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #111;
+      box-shadow: 0 8px 20px rgba(255,214,0,0.2);
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(0,0,0,0.1);
+      color: var(--text);
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 2rem;
+    }
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px var(--shadow);
+      padding: 1.5rem;
+    }
+
+    /* Contact Info */
+    .contact-info h2 {
+      margin-top: 0;
+    }
+    .info-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      align-items: center;
+    }
+    .info-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .team {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 1rem;
+    }
+    .agent {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .meta { font-weight: 600; }
+    .role { font-size: 0.85rem; color: var(--muted); }
+
+    /* Map */
+    .map {
+      height: 250px;
+      margin-top: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .map iframe { width: 100%; height: 100%; border: 0; }
+
+    /* Form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 0.9rem; color: var(--muted); }
+    input, select, textarea {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      outline: none;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+    .form-row .field { flex: 1; }
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .copy-btn {
+      background: #f3f6f8;
+      border: 1px solid #e6eaee;
+      color: #111;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* Responsive */
+    @media(max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="assets/logo.svg" alt="JP&B Realty">
+      JP&B Realty
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="listings.html">Listings</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="inner">
+      <div class="copy">
+        <h1>Get in touch with JP&B Realty</h1>
+        <p>Have questions about a property, need a valuation, or looking for advice? Our team is here to help.</p>
+        <div class="hero-actions">
+          <a href="#contact-form" class="btn btn-primary">Send a Message</a>
+          <a href="tel:+639123456789" class="btn btn-ghost">Call +63 912 345 6789</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Info column -->
+    <div>
+      <div class="panel contact-info">
+        <h2>Contact Information</h2>
+        <p style="color: var(--muted)">Prefer to reach us directly? Call, email, or drop by our office.</p>
+
+        <div class="info-row"><div class="info-icon">📞</div><div><b>Phone</b><br><a href="tel:+639123456789">+63 912 345 6789</a></div></div>
+        <div class="info-row"><div class="info-icon">✉️</div><div><b>Email</b><br><a href="mailto:info@jpandbrealty.com">info@jpandbrealty.com</a></div></div>
+        <div class="info-row"><div class="info-icon">📍</div><div><b>Office</b><br>123 Real Estate Ave, Quezon City</div></div>
+
+        <div style="margin-top: 1rem">
+          <b>Our Agents</b>
+          <div class="team">
+            <div class="agent">
+              <div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80" alt=""></div>
+              <div><div class="meta">Maria Santos</div><div class="role">Senior Agent</div></div>
+            </div>
+            <div class="agent">
+              <div class="avatar"><img src="https://images.unsplash.com/photo-1545996124-1b7a0cd8f5b8?auto=format&fit=crop&w=400&q=80" alt=""></div>
+              <div><div class="meta">Carlo Dela Cruz</div><div class="role">Sales Associate</div></div>
+            </div>
+            <div class="agent">
+              <div class="avatar"><img src="https://images.unsplash.com/photo-1531123414780-fdf2f3a8d06c?auto=format&fit=crop&w=400&q=80" alt=""></div>
+              <div><div class="meta">Ana Reyes</div><div class="role">Client Relations</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top: 1rem">
+        <b>Our Location</b>
+        <div class="map"><iframe loading="lazy" src="https://www.google.com/maps?q=Quezon+City+Philippines&output=embed"></iframe></div>
+      </div>
+    </div>
+
+    <!-- Form column -->
+    <aside>
+      <div class="panel">
+        <form id="contact-form">
+          <h3 style="margin-top:0">Send us a message</h3>
+          <div class="form-row">
+            <div class="field"><label for="name">Full name</label><input id="name" type="text" required></div>
+            <div class="field"><label for="phone">Phone</label><input id="phone" type="tel"></div>
+          </div>
+          <div class="field"><label for="email">Email</label><input id="email" type="email" required></div>
+          <div class="field"><label for="type">Inquiry type</label>
+            <select id="type" required>
+              <option value="">Choose an option</option>
+              <option>General question</option>
+              <option>Listing enquiry</option>
+              <option>Sell my property</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+          <div class="field"><label for="property">Property ID (optional)</label><input id="property" type="text"></div>
+          <div class="field"><label for="message">Message</label><textarea id="message" required></textarea></div>
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">Open email client</button>
+            <button class="copy-btn" type="button" id="copy-btn">Copy message</button>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <p>Contact us: <a href="mailto:info@jpandbrealty.com">info@jpandbrealty.com</a> | <a href="tel:+639123456789">+63 912 345 6789</a></p>
+    <p>&copy; <span id="yr"></span> JP&B Realty. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    // (reuse your existing JS for mailto + copy message if needed)
+  </script>
+</body>
+</html>
