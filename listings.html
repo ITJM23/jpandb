@@ -115,10 +115,6 @@
         flex-direction: column;
       }
     }
-        /* Responsive */
-    @media(max-width: 900px) {
-      .container { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 <body>
@@ -129,7 +125,6 @@
       <a href="listings.html">Listings</a>
       <a href="contact.html">Contact</a>
     </nav>
-     <div class="menu-toggle" id="menu-toggle">&#9776;</div>
   </header>
 
   <div class="filter-bar">
@@ -212,23 +207,6 @@
     typeFilter.addEventListener('change', filterListings);
     priceFilter.addEventListener('change', filterListings);
     bedsFilter.addEventListener('change', filterListings);
-
-        // Mobile menu toggle
-    const menuToggle=document.getElementById("menu-toggle");
-    const navMenu=document.getElementById("nav-menu");
-    menuToggle.addEventListener("click", ()=> navMenu.classList.toggle("show"));
-    navMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", ()=> navMenu.classList.remove("show"));
-    });
-
-    // Smooth scroll to form
-    document.querySelectorAll('a[href="#contact-form"]').forEach(btn=>{
-      btn.addEventListener("click", e=>{
-        e.preventDefault();
-        document.querySelector("#contact-form").scrollIntoView({behavior:"smooth"});
-      });
-    });
-    
   </script>
 </body>
 </html>
