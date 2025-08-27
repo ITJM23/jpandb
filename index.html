@@ -148,22 +148,51 @@
       .hero-content h1 {font-size:2.2rem;}
       nav a {margin-left:1rem;}
     }
+
+
+    /* Mobile Nav */
+.menu-toggle {
+  display:none;
+  font-size:1.8rem;
+  cursor:pointer;
+  color:#FFD600;
+}
+
+/* Hide nav on mobile */
+@media(max-width:768px){
+  nav {
+    position:absolute;
+    top:100%; left:0; width:100%;
+    background:#111;
+    display:none;
+    flex-direction:column;
+    text-align:center;
+  }
+  nav a {
+    padding:1rem; margin:0; border-top:1px solid rgba(255,255,255,0.1);
+  }
+  nav.show {display:flex;}
+  .menu-toggle {display:block;}
+}
+
+
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <a href="#" class="logo">JP&B Realty</a>
-    <nav>
-      <a href="#home" class="active">Home</a>
-      <a href="listings.html">Listings</a>
-      <a href="#about">About</a>
-      <a href="#team">Team</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
+<!-- Header -->
+<header>
+  <a href="#" class="logo">JP&B Realty</a>
+  <nav id="nav-menu">
+    <a href="#home" class="active">Home</a>
+    <a href="listings.html">Listings</a>
+    <a href="#about">About</a>
+    <a href="#team">Team</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+</header>
 
   <!-- Hero -->
   <section class="hero" id="home">
@@ -311,6 +340,18 @@
     }
     dots.forEach((dot,i)=>{dot.addEventListener("click",()=>showSlide(i));});
     setInterval(()=>{showSlide((index+1)%dots.length);},5000);
+
+
+    // Mobile menu toggle
+const menuToggle=document.getElementById("menu-toggle");
+const navMenu=document.getElementById("nav-menu");
+
+menuToggle.addEventListener("click", ()=>{
+  navMenu.classList.toggle("show");
+});
+
+
+
   </script>
 </body>
 </html>
