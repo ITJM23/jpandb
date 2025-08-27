@@ -58,6 +58,27 @@
     nav a.active {
       color: var(--accent);
     }
+    .menu-toggle {
+      display:none;
+      font-size:1.8rem;
+      cursor:pointer;
+      color:var(--accent);
+    }
+    @media(max-width:768px){
+      nav {
+        position:absolute;
+        top:100%; left:0; width:100%;
+        background:#111;
+        display:none;
+        flex-direction:column;
+        text-align:center;
+      }
+      nav a {
+        padding:1rem; margin:0; border-top:1px solid rgba(255,255,255,0.1);
+      }
+      nav.show {display:flex;}
+      .menu-toggle {display:block;}
+    }
 
     /* Hero */
     .hero {
@@ -162,6 +183,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .agent:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
     .avatar {
       width: 50px;
@@ -244,11 +270,12 @@
       <img src="assets/logo.svg" alt="JP&B Realty">
       JP&B Realty
     </div>
-    <nav>
+    <nav id="nav-menu">
       <a href="index.html">Home</a>
       <a href="listings.html">Listings</a>
       <a href="contact.html" class="active">Contact</a>
     </nav>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
   </header>
 
   <section class="hero">
@@ -337,7 +364,22 @@
 
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
-    // (reuse your existing JS for mailto + copy message if needed)
+
+    // Mobile menu toggle
+    const menuToggle=document.getElementById("menu-toggle");
+    const navMenu=document.getElementById("nav-menu");
+    menuToggle.addEventListener("click", ()=> navMenu.classList.toggle("show"));
+    navMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", ()=> navMenu.classList.remove("show"));
+    });
+
+    // Smooth scroll to form
+    document.querySelectorAll('a[href="#contact-form"]').forEach(btn=>{
+      btn.addEventListener("click", e=>{
+        e.preventDefault();
+        document.querySelector("#contact-form").scrollIntoView({behavior:"smooth"});
+      });
+    });
   </script>
 </body>
 </html>
