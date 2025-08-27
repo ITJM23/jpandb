@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>JP&B Realty — Listings</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --accent: #FFD600;
+      --bg: #f8f9fb;
+      --text: #222;
+      --muted: #6b6f76;
+      --card: #ffffff;
+      --shadow: rgba(17,17,17,0.07);
+    }
+
+    /* Reset + base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* Header (matches index) */
+    header{
+      background:#fff;
+      border-bottom:1px solid #eee;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:1rem 1.5rem;
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand img{height:40px; display:block}
+    .brand h1{
+      font-size:1.15rem;
+      margin:0;
+      font-weight:700;
+      letter-spacing:0.4px;
+    }
+    nav{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      font-weight:600;
+      color:var(--muted);
+    }
+    nav a{padding:8px 10px; border-radius:8px}
+    nav a:hover{background:#f2f2f2;color:var(--text)}
+
+    /* Hero */
+    .hero{
+      padding:2.6rem 1rem;
+      text-align:center;
+      background: linear-gradient(180deg, rgba(255,246,207,0.6), rgba(255,255,255,0.2));
+    }
+    .hero .wrap{
+      max-width:980px;
+      margin:0 auto;
+    }
+    .hero h2{
+      margin:0 0 0.6rem;
+      font-size:2rem;
+      color:var(--text);
+    }
+    .hero p{
+      margin:0 0 1rem;
+      color:var(--muted);
+      font-size:1rem;
+    }
+    .hero .cta{
+      display:inline-block;
+      background:var(--accent);
+      color:#111;
+      padding:0.7rem 1.25rem;
+      border-radius:999px;
+      font-weight:700;
+      box-shadow: 0 6px 20px rgba(255,214,0,0.2);
+    }
+    .hero .meta{
+      margin-top:1rem;
+      color:var(--muted);
+      font-size:0.9rem;
+    }
+
+    main{
+      max-width:1100px;
+      margin:2rem auto;
+      padding:0 1rem 3rem;
+    }
+
+    /* Section title */
+    .section-title{
+      text-align:center;
+      color:var(--accent);
+      font-weight:800;
+      letter-spacing:0.6px;
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    /* Grid */
+    .listings-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:1.6rem;
+    }
+
+    .listing-card{
+      background:var(--card);
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow: 0 8px 24px var(--shadow);
+      transition: transform .22s ease, box-shadow .22s ease;
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+    .listing-card:hover{
+      transform: translateY(-8px);
+      box-shadow: 0 14px 36px rgba(17,17,17,0.12);
+    }
+
+    .listing-media{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      background:#eee;
+      display:block;
+    }
+
+    .listing-body{
+      padding:1.1rem 1rem;
+      display:flex;
+      flex-direction:column;
+      gap:0.6rem;
+      flex:1;
+    }
+
+    .meta-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+    }
+    .listing-title{
+      margin:0;
+      color:var(--text);
+      font-weight:700;
+      font-size:1.05rem;
+    }
+    .listing-location{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+    .listing-desc{
+      color:#555;
+      font-size:0.95rem;
+      margin-top:4px;
+      line-height:1.35;
+      flex:1;
+    }
+
+    .listing-footer{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      margin-top:0.6rem;
+    }
+    .listing-price{
+      color:var(--text);
+      font-weight:800;
+      font-size:1.05rem;
+    }
+    .tag{
+      background:rgba(0,0,0,0.04);
+      padding:6px 8px;
+      border-radius:8px;
+      font-weight:700;
+      color:var(--muted);
+      font-size:0.85rem;
+    }
+
+    /* Footer */
+    footer{
+      background:#fff;
+      border-top:1px solid #eee;
+      padding:1.2rem;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+    footer a{color:var(--text); font-weight:600}
+    footer .social{margin-top:8px;color:var(--muted)}
+
+    /* Responsive tweaks */
+    @media (max-width:720px){
+      .hero h2{font-size:1.5rem}
+      .listing-media{height:150px}
+      header{padding:0.8rem 1rem}
+    }
+  </style>
+
+  <!-- Add this CSS (below your styles) -->
+<style>
+  /* Lightbox styles */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+  }
+  .lightbox img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    object-fit: contain;
+  }
+  .lightbox .controls {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+  .lightbox button {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .lightbox button:hover {
+    background: rgba(255,255,255,0.25);
+  }
+  .lightbox .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+    background: none;
+    border: none;
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <img src="assets/logo.svg" alt="JP&amp;B Realty logo">
+      <h1>JP&amp;B Realty</h1>
+    </div>
+
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="listings.html" style="color:var(--text);">Listings</a>
+
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Light hero/banner (index style) -->
+  <section class="hero">
+    <div class="wrap">
+      <h2>Browse Our Featured Properties</h2>
+      <p>Hand-picked homes and investment properties across prime locations — curated by JP&amp;B Realty.</p>
+      <a class="cta" href="#listings">See Listings</a>
+      <div class="meta">Quality photos • Trusted agents • Transparent pricing</div>
+    </div>
+  </section>
+
+  <!-- Listings -->
+  <main id="listings">
+    <div class="section-title">Featured Properties</div>
+
+    <div class="listings-grid">
+      <!-- 1 -->
+      <article class="listing-card" aria-labelledby="l1-title">
+        <img class="listing-media" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" alt="Modern City Apartment">
+        <div class="listing-body">
+          <div class="meta-row">
+            <h3 id="l1-title" class="listing-title">Modern City Apartment</h3>
+            <div class="tag">For Rent</div>
+          </div>
+          <div class="listing-location">Downtown, Metro City</div>
+          <div class="listing-desc">2 bed · 2 bath · 1,200 sqft — stunning views, open-plan living, premium finishes.</div>
+          <div class="listing-footer">
+            <div class="listing-price">$2,500 / mo</div>
+            <div style="color:var(--muted);font-size:0.9rem">Available now</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="listing-card" aria-labelledby="l2-title">
+        <img class="listing-media" src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80" alt="Spacious Family Home">
+        <div class="listing-body">
+          <div class="meta-row">
+            <h3 id="l2-title" class="listing-title">Spacious Family Home</h3>
+            <div class="tag">For Sale</div>
+          </div>
+          <div class="listing-location">Greenfield Suburbs</div>
+          <div class="listing-desc">4 bed · 3 bath · 2,800 sqft — large backyard, newly renovated, quiet neighbourhood.</div>
+          <div class="listing-footer">
+            <div class="listing-price">$450,000</div>
+            <div style="color:var(--muted);font-size:0.9rem">Mortgage options available</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="listing-card" aria-labelledby="l3-title">
+        <img class="listing-media" src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1200&q=80" alt="Luxury Beachside Villa">
+        <div class="listing-body">
+          <div class="meta-row">
+            <h3 id="l3-title" class="listing-title">Luxury Beachside Villa</h3>
+            <div class="tag">For Sale</div>
+          </div>
+          <div class="listing-location">Sunset Beach</div>
+          <div class="listing-desc">5 bed · 5 bath · 5,000 sqft — private pool, ocean views, premium finishes throughout.</div>
+          <div class="listing-footer">
+            <div class="listing-price">$2,200,000</div>
+            <div style="color:var(--muted);font-size:0.9rem">Exclusive listing</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="listing-card" aria-labelledby="l4-title">
+        <img class="listing-media" src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80" alt="Cozy Country Cottage">
+        <div class="listing-body">
+          <div class="meta-row">
+            <h3 id="l4-title" class="listing-title">Cozy Country Cottage</h3>
+            <div class="tag">For Sale</div>
+          </div>
+          <div class="listing-location">Maplewood Village</div>
+          <div class="listing-desc">3 bed · 2 bath · 1,600 sqft — charming garden, fireplace, peaceful surroundings.</div>
+          <div class="listing-footer">
+            <div class="listing-price">$320,000</div>
+            <div style="color:var(--muted);font-size:0.9rem">Perfect weekend escape</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <div class="lightbox" id="lightbox">
+  <button class="close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="Property image">
+  <div class="controls">
+    <button onclick="prevImage()">&#10094; Prev</button>
+    <button onclick="nextImage()">Next &#10095;</button>
+  </div>
+</div>
+
+<!-- Add this script before </body> -->
+<script>
+  const gallery = {
+    1: [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80"
+    ],
+    2: [
+      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    3: [
+      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80"
+    ],
+    4: [
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
+    ]
+  };
+
+  let currentGallery = [];
+  let currentIndex = 0;
+
+  function openLightbox(listingId) {
+    currentGallery = gallery[listingId];
+    currentIndex = 0;
+    document.getElementById('lightbox').style.display = 'flex';
+    document.getElementById('lightbox-img').src = currentGallery[currentIndex];
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % currentGallery.length;
+    document.getElementById('lightbox-img').src = currentGallery[currentIndex];
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+    document.getElementById('lightbox-img').src = currentGallery[currentIndex];
+  }
+
+  // Add click listeners to listing images
+  document.querySelectorAll(".listing-card img").forEach((img, i) => {
+    img.addEventListener("click", () => openLightbox(i+1));
+  });
+</script>
+
+
+
+  <!-- Footer -->
+  <footer>
+    <div>Contact us: <a href="mailto:info@jpandbrealty.com">info@jpandbrealty.com</a> | (555) 123-4567</div>
+    <div class="social" style="margin-top:8px;">
+      <a href="#" style="margin-right:10px">Facebook</a>
+      <a href="#" style="margin-right:10px">Instagram</a>
+      <a href="#">Twitter</a>
+    </div>
+    <div style="margin-top:10px; color:var(--muted);">&copy; <span id="yr"></span> JP&amp;B Realty. All rights reserved.</div>
+    <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+  </footer>
+
+</body>
+</html>

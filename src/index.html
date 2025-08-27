@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>JP&amp;B Realty — Find Your Dream Home</title>
+<meta name="description" content="JP&B Realty — premium homes, expert agents. Browse featured properties, meet the team, and get in touch." />
+
+<style>
+  :root{
+    --accent: #FFD600;
+    --bg: #f6f8fa;
+    --card: #ffffff;
+    --text: #0f1720;
+    --muted: #6b7280;
+    --radius: 12px;
+    --shadow: 0 10px 30px rgba(16,24,40,0.06);
+    --glass: rgba(255,255,255,0.7);
+    --break-sm: 720px;
+  }
+
+  /* Reset & base */
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.5;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:60;
+    backdrop-filter: blur(6px);
+    background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.75));
+    border-bottom:1px solid rgba(15,23,36,0.06);
+    box-shadow: 0 6px 20px rgba(2,6,23,0.02);
+  }
+  .nav {
+    max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand svg{height:44px;width:auto;display:block}
+  .brand .title{font-weight:800;font-size:1.05rem;letter-spacing:0.2px}
+  nav.links{display:flex;gap:14px;align-items:center}
+  nav.links a{color:var(--muted);font-weight:600;padding:8px 10px;border-radius:8px}
+  nav.links a:hover{color:var(--text);background:#f3f6f8}
+
+  .nav-actions{display:flex;gap:10px;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border-radius:999px;font-weight:800;cursor:pointer}
+  .btn-primary{background:var(--accent);color:#111;box-shadow:0 6px 22px rgba(255,214,0,0.12)}
+  .btn-ghost{background:transparent;border:1px solid rgba(15,23,36,0.06);color:var(--text)}
+
+  /* Mobile nav */
+  .hamburger{display:none;background:transparent;border:0;font-size:20px;padding:8px;cursor:pointer}
+  @media (max-width:var(--break-sm)){
+    nav.links{display:none}
+    .hamburger{display:inline-flex}
+  }
+
+  /* Hero */
+  .hero{
+    min-height:56vh;
+    display:grid;
+    align-items:center;
+    place-items:center;
+    padding:48px 20px;
+    background:
+      linear-gradient(180deg, rgba(2,6,23,0.20), rgba(2,6,23,0.18)),
+      url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    color:#fff;
+    text-align:center;
+  }
+  .hero-inner{max-width:1100px}
+  .kicker{display:inline-block;background:rgba(255,255,255,0.08);padding:6px 12px;border-radius:999px;color:#ffeab2;font-weight:700;margin-bottom:16px}
+  h1.hero-title{font-size:clamp(1.6rem,4.5vw,2.8rem);margin:0 0 12px;line-height:1.05}
+  p.hero-sub{margin:0 0 20px;color:rgba(255,255,255,0.90);font-size:1.05rem;max-width:780px;margin-left:auto;margin-right:auto}
+  .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+  /* Featured properties */
+  .section{max-width:1200px;margin:48px auto;padding:0 20px}
+  .section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+  .section-head h2{margin:0;font-size:1.35rem;color:var(--text)}
+  .property-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .card{
+    background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .22s ease,box-shadow .22s ease;
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(2,6,23,0.08)}
+  .card-media{position:relative;height:180px;overflow:hidden}
+  .badge-price{position:absolute;left:12px;top:12px;background:rgba(0,0,0,0.7);color:#fff;padding:8px 10px;border-radius:10px;font-weight:800;font-size:0.95rem}
+  .badge-tag{position:absolute;right:12px;top:12px;background:rgba(255,255,255,0.92);color:var(--text);padding:6px 10px;border-radius:999px;font-weight:700;font-size:0.85rem}
+  .card-media img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.02)}
+  .card-body{padding:14px 16px}
+  .card-title{font-weight:800;margin:0 0 6px}
+  .meta{color:var(--muted);font-size:0.95rem;margin-bottom:8px}
+  .card-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .chip{background:#f3f4f6;padding:8px 10px;border-radius:999px;font-weight:700;color:var(--muted);font-size:0.9rem}
+
+  /* About improved */
+  .about{
+    background:linear-gradient(180deg,#ffffff, #fbfbfd);
+    padding:56px 20px;
+  }
+  .about-grid{display:grid;grid-template-columns:1fr 420px;gap:28px;max-width:1100px;margin:0 auto}
+  .about-card{background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow)}
+  .about h3{margin:0 0 12px;font-size:1.6rem}
+  .about p{color:var(--muted);margin-bottom:12px}
+  .values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+  .value{background:#fff;padding:12px;border-radius:10px;border:1px solid rgba(15,23,36,0.03);text-align:center}
+  .value h4{margin:0 0 6px;font-size:1rem}
+  .value p{color:var(--muted);font-size:0.95rem}
+
+  /* Team */
+  .team{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
+  .agent{background:var(--card);border-radius:12px;padding:12px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow)}
+  .avatar{width:60px;height:60px;border-radius:999px;overflow:hidden}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .agent-info .name{font-weight:800}
+  .agent-info .role{color:var(--muted);font-size:0.95rem}
+
+  /* Testimonials */
+  .testimonials{max-width:980px;margin:36px auto;padding:0 20px}
+  .testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .testimonial{background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow);color:var(--muted)}
+  .testimonial p{margin:0 0 10px}
+  .testimonial .who{font-weight:800;color:var(--text)}
+
+  /* Footer */
+  footer{margin-top:36px;background:#fff;padding:28px 20px;border-top:1px solid rgba(15,23,36,0.04)}
+  .footer-inner{max-width:1100px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+  .footer-col{min-width:180px}
+  .newsletter input{padding:10px;border-radius:10px;border:1px solid #e6e9ee;margin-right:8px}
+
+  /* Modal lightbox */
+  .lightbox{
+    position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.85);z-index:1200;padding:20px;
+  }
+  .lightbox .frame{max-width:1100px;width:100%;max-height:90vh;background:transparent;position:relative}
+  .lightbox img{width:100%;height:auto;border-radius:10px;display:block;max-height:78vh;object-fit:contain}
+  .lightbox .close{position:absolute;right:6px;top:6px;background:transparent;border:0;color:#fff;font-size:28px;cursor:pointer}
+  .lightbox .navbtn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.08);border:0;color:#fff;padding:12px;border-radius:8px;cursor:pointer}
+  .lightbox .prev{left:6px}.lightbox .next{right:6px}
+  .lightbox .caption{margin-top:10px;color:rgba(255,255,255,0.9);text-align:center}
+
+  /* Responsive */
+  @media (max-width:1100px){ .property-grid{grid-template-columns:repeat(2,1fr)} .about-grid{grid-template-columns:1fr} }
+  @media (max-width:var(--break-sm)){
+    .property-grid{grid-template-columns:1fr}
+    .team{justify-content:center}
+    .testimonials-grid{grid-template-columns:1fr}
+    .brand .title{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="nav" role="navigation" aria-label="Main navigation">
+    <div class="brand">
+      <!-- simple SVG logo -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden focusable="false">
+        <rect x="6" y="30" width="30" height="40" rx="4" fill="#FFD600"/>
+        <rect x="36" y="20" width="58" height="60" rx="6" fill="#111"/>
+        <circle cx="22" cy="50" r="6" fill="#111"/>
+      </svg>
+      <div class="title">JP&amp;B Realty</div>
+    </div>
+
+    <nav class="links" aria-label="Primary">
+      <a href="#featured">Featured</a>
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="listings.html">Listings</a>
+      <a href="contact.html" class="btn btn-ghost">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="listings.html" class="btn btn-primary">Browse Listings</a>
+      <button class="hamburger" id="menuBtn" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" role="banner">
+  <div class="hero-inner">
+    <span class="kicker">Premium • Trusted • Local</span>
+    <h1 class="hero-title">Find the perfect home—without the stress.</h1>
+    <p class="hero-sub">JP&amp;B Realty connects you with curated properties across prime locations. Expert agents, transparent pricing, and personalized support through every step.</p>
+    <div class="hero-ctas">
+      <a href="listings.html" class="btn btn-primary">Browse Listings</a>
+      <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- Featured -->
+<section id="featured" class="section" aria-labelledby="featured-title">
+  <div class="section-head">
+    <h2 id="featured-title">Featured Properties</h2>
+    <div class="chip">Hand-picked listings</div>
+  </div>
+
+  <div class="property-grid" aria-live="polite">
+    <!-- Card 1 -->
+    <article class="card" tabindex="0" data-id="1" aria-labelledby="p1-title">
+      <div class="card-media" role="button" aria-label="Open gallery for Modern City Apartment">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=60" alt="Modern city apartment exterior">
+        <div class="badge-price">$2,500/mo</div>
+        <div class="badge-tag">For Rent</div>
+      </div>
+      <div class="card-body">
+        <h3 id="p1-title" class="card-title">Modern City Apartment</h3>
+        <div class="meta">2 bed • 2 bath • 120 m² — Downtown, close to transit</div>
+        <div class="card-row">
+          <a href="listings.html" class="chip">View details</a>
+          <button class="btn btn-ghost" data-open="1" aria-controls="lightbox">Quick view</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="card" tabindex="0" data-id="2" aria-labelledby="p2-title">
+      <div class="card-media" role="button" aria-label="Open gallery for Spacious Family Home">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1600&q=60" alt="Family home exterior">
+        <div class="badge-price">$450,000</div>
+        <div class="badge-tag">For Sale</div>
+      </div>
+      <div class="card-body">
+        <h3 id="p2-title" class="card-title">Spacious Family Home</h3>
+        <div class="meta">4 bed • 3 bath • 260 m² — Quiet neighbourhood</div>
+        <div class="card-row">
+          <a href="listings.html" class="chip">View details</a>
+          <button class="btn btn-ghost" data-open="2" aria-controls="lightbox">Quick view</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="card" tabindex="0" data-id="3" aria-labelledby="p3-title">
+      <div class="card-media" role="button" aria-label="Open gallery for Luxury Beachside Villa">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=60" alt="Beachside villa exterior">
+        <div class="badge-price">$2,200,000</div>
+        <div class="badge-tag">For Sale</div>
+      </div>
+      <div class="card-body">
+        <h3 id="p3-title" class="card-title">Luxury Beachside Villa</h3>
+        <div class="meta">5 bed • 5 bath • 500 m² — Ocean views, private pool</div>
+        <div class="card-row">
+          <a href="listings.html" class="chip">View details</a>
+          <button class="btn btn-ghost" data-open="3" aria-controls="lightbox">Quick view</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="about" aria-labelledby="about-title">
+  <div class="about-grid">
+    <div class="about-card">
+      <h3 id="about-title">About JP&amp;B Realty</h3>
+      <p>We believe searching for a home should feel exciting — not exhausting. Our agents combine local market insight with a people-first approach so you get a great property at the right price.</p>
+      <p>Whether you're buying, selling or investing, we provide clear guidance, honest negotiation, and hands-on support from first tour to closing.</p>
+
+      <div class="values">
+        <div class="value"><h4>🏡 Mission</h4><p>Match people to homes that suit their lives — with integrity and care.</p></div>
+        <div class="value"><h4>🤝 Promise</h4><p>Transparent fees, responsive agents, and realistic advice.</p></div>
+        <div class="value"><h4>🌍 Vision</h4><p>Grow a happier, more confident community of homeowners and investors.</p></div>
+      </div>
+
+      <div style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Our team</h4>
+        <div class="team" id="team">
+          <div class="agent">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=60" alt="Maria Santos"></div>
+            <div class="agent-info">
+              <div class="name">Maria Santos</div>
+              <div class="role">Senior Agent</div>
+            </div>
+          </div>
+          <div class="agent">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1545996124-1b7a0cd8f5b8?auto=format&fit=crop&w=400&q=60" alt="Carlo Dela Cruz"></div>
+            <div class="agent-info">
+              <div class="name">Carlo Dela Cruz</div>
+              <div class="role">Sales Associate</div>
+            </div>
+          </div>
+          <div class="agent">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1531123414780-fdf2f3a8d06c?auto=format&fit=crop&w=400&q=60" alt="Ana Reyes"></div>
+            <div class="agent-info">
+              <div class="name">Ana Reyes</div>
+              <div class="role">Client Relations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-card" aria-hidden>
+      <picture>
+        <source srcset="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=70" />
+        <img loading="lazy" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=60" alt="Modern living room and architecture">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" aria-labelledby="testi-title">
+  <h2 id="testi-title" style="text-align:center;margin-bottom:12px">What clients say</h2>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <p>"JP&amp;B found us the perfect home in a week. The process was smooth and their advice was invaluable."</p>
+      <div class="who">— Mark &amp; Liza, homeowners</div>
+    </div>
+    <div class="testimonial">
+      <p>"Professional, responsive, and genuine. Their pricing guidance helped us sell above asking."</p>
+      <div class="who">— Angela R., seller</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div style="font-weight:800">JP&amp;B Realty</div>
+      <div style="color:var(--muted);margin-top:6px">Trusted local agents. Personalized service. Transparent pricing.</div>
+    </div>
+
+    <div class="footer-col">
+      <div style="font-weight:700;margin-bottom:8px">Quick links</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <a href="#featured">Featured</a>
+        <a href="#about">About</a>
+        <a href="listings.html">Listings</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <div style="font-weight:700;margin-bottom:8px">Contact</div>
+      <div style="color:var(--muted)">info@jpandbrealty.com<br/>+63 912 345 6789</div>
+      <div style="margin-top:10px">
+        <a class="btn btn-ghost" href="mailto:tolentinojohnmark999@gmail.com">Email us</a>
+      </div>
+    </div>
+
+    <div class="footer-col newsletter">
+      <div style="font-weight:700;margin-bottom:8px">Newsletter</div>
+      <form onsubmit="event.preventDefault(); alert('Thanks — paste your email into your mail app (no server).');">
+        <div style="display:flex;gap:8px">
+          <input type="email" placeholder="you@example.com" aria-label="Your email" required style="flex:1;border-radius:10px;padding:10px;border:1px solid #e6e9ee" />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div style="max-width:1200px;margin:20px auto;text-align:center;color:var(--muted)">
+    <small>&copy; <span id="yr"></span> JP&amp;B Realty. All rights reserved.</small>
+  </div>
+</footer>
+
+<!-- Lightbox / Quick view -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="frame" role="document">
+    <button class="close" aria-label="Close" id="lbClose">✕</button>
+    <button class="navbtn prev" id="lbPrev" aria-label="Previous">‹</button>
+    <button class="navbtn next" id="lbNext" aria-label="Next">›</button>
+    <img id="lbImg" src="" alt="" />
+    <div class="caption" id="lbCaption"></div>
+  </div>
+</div>
+
+<script>
+  // Basic interactions: mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.querySelector('nav.links');
+  menuBtn?.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? '' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.background = 'white';
+    navLinks.style.position = 'absolute';
+    navLinks.style.right = '20px';
+    navLinks.style.top = '64px';
+    navLinks.style.padding = '12px';
+    navLinks.style.borderRadius = '10px';
+    navLinks.style.boxShadow = '0 10px 30px rgba(2,6,23,0.08)';
+  });
+
+  // Lightbox gallery data for quick view
+  const gallery = {
+    1: {
+      title: 'Modern City Apartment — Downtown',
+      images: [
+        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=70',
+        'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=70',
+        'https://images.unsplash.com/photo-1618221191488-6cf2b04b0f4c?auto=format&fit=crop&w=1400&q=70'
+      ]
+    },
+    2: {
+      title: 'Spacious Family Home — Greenfield',
+      images: [
+        'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1400&q=70',
+        'https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1400&q=70',
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1400&q=70'
+      ]
+    },
+    3: {
+      title: 'Luxury Beachside Villa — Sunset Beach',
+      images: [
+        'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1400&q=70',
+        'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=70',
+        'https://images.unsplash.com/photo-1505692794405-7f4b7b7b0b22?auto=format&fit=crop&w=1400&q=70'
+      ]
+    }
+  };
+
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCaption = document.getElementById('lbCaption');
+  const lbClose = document.getElementById('lbClose');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+
+  let current = { id: null, index: 0 };
+
+  // open handlers for quick view buttons & clickable card media
+  document.querySelectorAll('[data-open]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openLightbox(Number(btn.getAttribute('data-open'))));
+  });
+  document.querySelectorAll('.card-media').forEach(media=>{
+    media.addEventListener('click', ()=> {
+      const id = Number(media.closest('.card').dataset.id || media.closest('.card').getAttribute('data-id'));
+      openLightbox(id);
+    });
+  });
+
+  function openLightbox(id){
+    const g = gallery[id];
+    if(!g) return;
+    current.id = id;
+    current.index = 0;
+    showImage();
+    lightbox.style.display = 'flex';
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function closeLightbox(){
+    lightbox.style.display = 'none';
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function showImage(){
+    const g = gallery[current.id];
+    lbImg.src = g.images[current.index];
+    lbImg.alt = g.title + ' (' + (current.index+1) + ' of ' + g.images.length + ')';
+    lbCaption.textContent = g.title + ' — ' + (current.index+1) + '/' + g.images.length;
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', ()=> {
+    const g = gallery[current.id];
+    current.index = (current.index - 1 + g.images.length) % g.images.length;
+    showImage();
+  });
+  lbNext.addEventListener('click', ()=> {
+    const g = gallery[current.id];
+    current.index = (current.index + 1) % g.images.length;
+    showImage();
+  });
+
+  // keyboard navigation
+  document.addEventListener('keydown', (e)=>{
+    if(lightbox.style.display === 'flex'){
+      if(e.key === 'Escape') closeLightbox();
+      if(e.key === 'ArrowLeft') lbPrev.click();
+      if(e.key === 'ArrowRight') lbNext.click();
+    }
+  });
+
+  // smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // footer year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

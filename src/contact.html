@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — JP&amp;B Realty</title>
+
+  <style>
+    :root{
+      --accent:#FFD600;
+      --bg:#f6f7f9;
+      --card:#ffffff;
+      --text:#12202b;
+      --muted:#66707a;
+      --radius:12px;
+      --shadow:rgba(17,17,17,0.08);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding-bottom:100px; /* room for floating CTA */
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    /* Header */
+    header{
+      background:var(--card);
+      border-bottom:1px solid #eef2f5;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;position:sticky;top:0;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,0.02);
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{height:42px}
+    .brand .title{font-weight:800;letter-spacing:0.3px}
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{font-weight:600;color:var(--muted);padding:8px 10px;border-radius:8px}
+    nav a:hover{background:#f3f6f8;color:var(--text)}
+
+    /* Hero */
+    .hero{padding:44px 20px;background:linear-gradient(180deg, rgba(255,250,230,0.6), rgba(255,255,255,0.2));display:flex;align-items:center;justify-content:center}
+    .hero .inner{max-width:1100px;width:100%;display:flex;gap:28px;align-items:center}
+    .hero .copy{flex:1}
+    .hero h1{font-size:2.2rem;margin:0 0 8px}
+    .hero p{margin:0 0 16px;color:var(--muted);font-size:1.02rem}
+    .hero .hero-actions{display:flex;gap:12px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;font-weight:700;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#111;box-shadow:0 8px 26px rgba(255,214,0,0.15)}
+    .btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(18,32,43,0.06)}
+
+    /* Container */
+    .container{max-width:1100px;margin:26px auto;padding:0 20px}
+
+    /* Grid */
+    .contact-grid{display:grid;grid-template-columns:1fr 460px;gap:22px}
+    .panel{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:0 10px 30px var(--shadow)}
+
+    /* Info */
+    .contact-info h2{margin:0 0 8px}
+    .contact-info p{color:var(--muted);margin:6px 0}
+    .info-row{display:flex;gap:12px;align-items:center;margin-top:12px}
+    .info-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,0.04);background:linear-gradient(180deg,#fff,#fff)}
+
+    /* Team */
+    .team{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .agent{display:flex;gap:12px;align-items:center}
+    .avatar{width:56px;height:56px;border-radius:999px;overflow:hidden;flex:0 0 56px}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .agent .meta{font-weight:700}
+    .agent .role{font-weight:600;color:var(--muted);font-size:0.9rem}
+
+    /* Map */
+    .map{height:260px;border-radius:10px;overflow:hidden;margin-top:12px}
+    .map iframe{width:100%;height:100%;border:0}
+
+    /* Form */
+    form{display:flex;flex-direction:column;gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    label{font-size:0.9rem;color:var(--muted)}
+    input[type=text],input[type=email],input[type=tel],select,textarea{padding:12px;border-radius:10px;border:1px solid #e6eaee;background:#fff;font-size:1rem;color:var(--text);outline:none}
+    textarea{min-height:140px;resize:vertical}
+    .form-row{display:flex;gap:12px}
+    .form-row .field{flex:1}
+    .small{font-size:0.9rem;color:var(--muted)}
+
+    .actions{display:flex;gap:12px;align-items:center;margin-top:6px}
+    .copy-btn{background:#eef5ff;border:1px solid #dbe8ff;color:#1f4db2;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+
+    /* Toast */
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:30px;background:#111;color:#fff;padding:12px 18px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.2);display:none;z-index:70}
+
+    /* Footer & CTA */
+    footer{margin-top:34px;text-align:center;padding:28px 20px;color:var(--muted)}
+    .float-cta{position:fixed;right:18px;bottom:20px;background:#25D366;color:#fff;border-radius:999px;padding:14px 16px;box-shadow:0 12px 30px rgba(0,0,0,0.18);display:flex;align-items:center;gap:10px;font-weight:800;z-index:60}
+
+    /* Responsive */
+    @media (max-width:980px){.contact-grid{grid-template-columns:1fr 1fr}.hero .inner{flex-direction:column}.hero h1{font-size:1.6rem}}
+    @media (max-width:720px){.contact-grid{grid-template-columns:1fr}.map{height:200px}.brand img{height:36px}}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="assets/logo.svg" alt="JP&amp;B Realty logo" />
+      <div class="title">JP&amp;B Realty</div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="listings.html">Listings</a>
+      <a href="contact.html" style="color:var(--text)">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="inner">
+      <div class="copy">
+        <h1>We're here to help — get in touch with JP&amp;B Realty</h1>
+        <p>Questions about a listing, want a valuation, or need guidance? Tell us how we can help and a member of our team will respond promptly.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact-form">Send a Message</a>
+          <a class="btn btn-ghost" href="tel:+639123456789">Call +63 912 345 6789</a>
+        </div>
+      </div>
+
+      <div style="flex:0 0 340px">
+        <div style="background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,250,240,0.9));padding:16px;border-radius:12px;box-shadow:0 10px 30px rgba(17,17,17,0.04)">
+          <div style="font-weight:800;color:var(--accent);font-size:0.95rem">Office Hours</div>
+          <div style="margin-top:8px;color:var(--muted)">Mon–Fri: 9:00 AM – 6:00 PM<br>Sat: 10:00 AM – 2:00 PM<br>Sun: Closed</div>
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <div style="width:8px;height:8px;background:var(--accent);border-radius:50%"></div>
+            <div style="font-weight:700">Open for consultations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="contact-grid">
+      <!-- Left column: info + map + team -->
+      <div>
+        <div class="panel contact-info">
+          <h2>Contact Information</h2>
+          <p class="small">Prefer to speak directly? Reach out via phone, email, or visit our office.</p>
+
+          <div class="info-row">
+            <div class="info-icon" aria-hidden>📞</div>
+            <div>
+              <div style="font-weight:800">Phone</div>
+              <div class="small"><a href="tel:+639123456789">+63 912 345 6789</a></div>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-icon" aria-hidden>✉️</div>
+            <div>
+              <div style="font-weight:800">Email</div>
+              <div class="small"><a href="mailto:info@jpandbrealty.com">info@jpandbrealty.com</a></div>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-icon" aria-hidden>📍</div>
+            <div>
+              <div style="font-weight:800">Office</div>
+              <div class="small">123 Real Estate Ave, Quezon City, Philippines</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div style="font-weight:800;margin-bottom:8px">Our Agents</div>
+            <div class="team">
+              <div class="agent">
+                <div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80" alt="Agent Maria"></div>
+                <div>
+                  <div class="meta">Maria Santos</div>
+                  <div class="role">Senior Agent</div>
+                </div>
+              </div>
+
+              <div class="agent">
+                <div class="avatar"><img src="https://images.unsplash.com/photo-1545996124-1b7a0cd8f5b8?auto=format&fit=crop&w=400&q=80" alt="Agent Carlo"></div>
+                <div>
+                  <div class="meta">Carlo Dela Cruz</div>
+                  <div class="role">Sales Associate</div>
+                </div>
+              </div>
+
+              <div class="agent">
+                <div class="avatar"><img src="https://images.unsplash.com/photo-1531123414780-fdf2f3a8d06c?auto=format&fit=crop&w=400&q=80" alt="Agent Ana"></div>
+                <div>
+                  <div class="meta">Ana Reyes</div>
+                  <div class="role">Client Relations</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:16px">
+          <div style="font-weight:800;margin-bottom:8px">Our Location</div>
+          <div class="map" aria-hidden="false">
+            <iframe loading="lazy" src="https://www.google.com/maps?q=Quezon+City+Philippines&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: form -->
+      <aside>
+        <div class="panel">
+          <form id="contact-form" aria-labelledby="contact-title">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <div style="font-weight:800;font-size:1.05rem" id="contact-title">Send us a message</div>
+              <div class="small">Response within 24 hours</div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Full name</label>
+                <input id="name" name="name" type="text" required placeholder="Your full name">
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" inputmode="tel" pattern="[0-9+ \-()]{6,20}" placeholder="+63 912 345 6789">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required placeholder="you@example.com">
+            </div>
+
+            <div class="field">
+              <label for="type">Inquiry type</label>
+              <select id="type" name="type" required>
+                <option value="">Choose an option</option>
+                <option>General question</option>
+                <option>Listing enquiry</option>
+                <option>Sell my property</option>
+                <option>Partnership</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="property">Property ID (optional)</label>
+              <input id="property" name="property" type="text" placeholder="e.g. LP-1234">
+            </div>
+
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us a little about what you need..." required></textarea>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px">
+              <div class="small muted">We respect your privacy. By submitting you agree we may contact you about your enquiry.</div>
+              <div class="small"><a href="#">Privacy policy</a></div>
+            </div>
+
+            <div class="actions">
+              <button class="btn btn-primary" id="send-btn" type="submit">Open email client</button>
+              <button type="button" class="copy-btn" id="copy-btn">Copy message</button>
+            </div>
+          </form>
+
+          <div style="margin-top:10px;color:var(--muted);font-size:0.95rem">If your device does not have a default mail app, use the <strong>Copy message</strong> button and paste into your email provider.</div>
+        </div>
+
+        <div style="margin-top:12px;text-align:center">
+          <a class="btn btn-ghost" href="mailto:info@jpandbrealty.com">Or email us directly</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div>
+      <div>Contact us: <a href="mailto:info@jpandbrealty.com">info@jpandbrealty.com</a> | <a href="tel:+639123456789">+63 912 345 6789</a></div>
+      <div style="margin-top:8px;color:var(--muted);">&copy; <span id="yr"></span> JP&amp;B Realty. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <a class="float-cta" href="https://wa.me/639123456789?text=Hi%20JP%26B%20Realty!%20I%20have%20an%20inquiry" aria-label="Chat on WhatsApp">💬 WhatsApp</a>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('contact-form');
+    const toast = document.getElementById('toast');
+    const copyBtn = document.getElementById('copy-btn');
+    const sendBtn = document.getElementById('send-btn');
+
+    function showToast(msg, timeout=2200){
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(()=>{ toast.style.display = 'none'; }, timeout);
+    }
+
+    function buildMessage(){
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const type = document.getElementById('type').value;
+      const property = document.getElementById('property').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      let body = '';
+      body += `Name: ${name}%0D%0A`;
+      if(phone) body += `Phone: ${phone}%0D%0A`;
+      body += `Email: ${email}%0D%0A`;
+      body += `Inquiry Type: ${type}%0D%0A`;
+      if(property) body += `Property ID: ${property}%0D%0A`;
+      body += `%0D%0AMessage:%0D%0A${encodeURIComponent(message)}%0D%0A%0D%0A`;
+      body += `--%0D%0AThis message was sent from the JP&B Realty contact form.`;
+
+      return body;
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+
+      // Prepare mailto link
+      const to = 'tolentinojohnmark999@gmail.com';
+      const type = document.getElementById('type').value || 'General enquiry';
+      const name = document.getElementById('name').value.trim() || 'No name';
+      const subject = encodeURIComponent(`JP&B Realty: ${type} — ${name}`);
+      const body = buildMessage();
+      const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+
+      // Attempt to open mail client
+      showToast('Opening your email client...');
+      // Some browsers block window.open for mailto, location.href tends to work
+      window.location.href = mailto;
+
+      // If after a short delay user still on page, show hint
+      setTimeout(()=>{
+        showToast('If no mail client opened, click "Copy message" and paste into your email.');
+      },1500);
+    });
+
+    copyBtn.addEventListener('click', async function(){
+      if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+
+      // Build plain-text message for clipboard
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const type = document.getElementById('type').value;
+      const property = document.getElementById('property').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      let text = '';
+      text += `To: tolentinojohnmark999@gmail.com\n`;
+      text += `Subject: JP&B Realty: ${type} - ${name}\n\n`;
+      text += `Name: ${name}\n`;
+      if(phone) text += `Phone: ${phone}\n`;
+      text += `Email: ${email}\n`;
+      text += `Inquiry Type: ${type}\n`;
+      if(property) text += `Property ID: ${property}\n`;
+      text += `\nMessage:\n${message}\n\n--\nThis message was copied from JP&B Realty contact form.`;
+
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast('Message copied to clipboard — paste into your email.');
+      }catch(err){
+        // Fallback: select and prompt
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try{ document.execCommand('copy'); showToast('Message copied to clipboard.'); }catch(e){ alert('Copy failed — please paste manually:\n\n'+text); }
+        document.body.removeChild(textarea);
+      }
+    });
+
+    // Improve UX: focus first field when hash present
+    if(location.hash === '#contact' || location.hash === '#contact-form'){
+      setTimeout(()=>{document.getElementById('name').focus();},400);
+    }
+  </script>
+</body>
+</html>
