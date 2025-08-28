@@ -27,7 +27,7 @@
     header {
       background: #111;
       color: #fff;
-      padding: 1rem 2rem;
+      padding: 1rem 1.25rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -38,52 +38,52 @@
     header .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 1.4rem;
+      gap: 10px;
+      font-size: 1.25rem;
       font-weight: bold;
     }
-    header .brand img {
-      height: 38px;
-    }
+    header .brand img { height: 34px; }
+
     nav a {
-      margin-left: 1.5rem;
+      margin-left: 1.25rem;
       text-decoration: none;
       color: #fff;
       font-weight: 500;
       transition: color 0.3s;
     }
-    nav a:hover {
-      color: var(--accent);
-    }
-    nav a.active {
-      color: var(--accent);
-    }
+    nav a:hover,
+    nav a.active { color: var(--accent); }
+
     .menu-toggle {
       display:none;
       font-size:1.8rem;
       cursor:pointer;
       color:var(--accent);
     }
-    @media(max-width:768px){
+
+    @media(max-width: 768px){
       nav {
-        position:absolute;
-        top:100%; left:0; width:100%;
-        background:#111;
-        display:none;
-        flex-direction:column;
-        text-align:center;
+        position: absolute;
+        top: 100%; left: 0;
+        width: 100%;
+        background: #111;
+        display: none;
+        flex-direction: column;
+        text-align: center;
       }
       nav a {
-        padding:1rem; margin:0; border-top:1px solid rgba(255,255,255,0.1);
+        padding: 1rem;
+        margin: 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
       }
-      nav.show {display:flex;}
-      .menu-toggle {display:block;}
+      nav.show { display: flex; }
+      .menu-toggle { display:block; }
     }
 
     /* Hero */
     .hero {
       background: linear-gradient(135deg, rgba(255,214,0,0.15), rgba(255,255,255,0.8));
-      padding: 4rem 2rem;
+      padding: 3rem 1.25rem;
       display: flex;
       justify-content: center;
     }
@@ -96,20 +96,20 @@
     }
     .hero .copy {
       flex: 1;
-      min-width: 280px;
+      min-width: 260px;
     }
     .hero h1 {
-      font-size: 2.2rem;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
       margin: 0 0 12px;
     }
     .hero p {
       margin: 0 0 20px;
       color: var(--muted);
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
     .hero-actions {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -146,17 +146,18 @@
       grid-template-columns: 1fr 420px;
       gap: 2rem;
     }
+    @media(max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
     .panel {
       background: var(--card);
       border-radius: var(--radius);
       box-shadow: 0 6px 18px var(--shadow);
-      padding: 1.5rem;
+      padding: 1.25rem;
     }
 
     /* Contact Info */
-    .contact-info h2 {
-      margin-top: 0;
-    }
     .info-row {
       display: flex;
       gap: 12px;
@@ -164,14 +165,11 @@
       align-items: center;
     }
     .info-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
+      width: 40px; height: 40px;
+      border-radius: 8px;
       background: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
     }
     .team {
       display: flex;
@@ -186,26 +184,22 @@
       transition: transform .25s ease, box-shadow .25s ease;
     }
     .agent:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
     }
     .avatar {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       overflow: hidden;
     }
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
     .meta { font-weight: 600; }
     .role { font-size: 0.85rem; color: var(--muted); }
 
     /* Map */
     .map {
-      height: 250px;
+      height: 230px;
       margin-top: 1rem;
       border-radius: 10px;
       overflow: hidden;
@@ -213,11 +207,7 @@
     .map iframe { width: 100%; height: 100%; border: 0; }
 
     /* Form */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+    form { display: flex; flex-direction: column; gap: 1rem; }
     .field { display: flex; flex-direction: column; gap: 6px; }
     label { font-size: 0.9rem; color: var(--muted); }
     input, select, textarea {
@@ -228,14 +218,15 @@
       outline: none;
     }
     textarea { min-height: 120px; resize: vertical; }
-    .form-row {
-      display: flex;
-      gap: 12px;
-    }
+    .form-row { display: flex; gap: 12px; }
     .form-row .field { flex: 1; }
+    @media(max-width:600px){
+      .form-row { flex-direction: column; }
+    }
     .actions {
       display: flex;
       gap: 12px;
+      flex-wrap: wrap;
       align-items: center;
     }
     .copy-btn {
@@ -255,20 +246,15 @@
       text-align: center;
       padding: 1.5rem;
       margin-top: 3rem;
+      font-size: 0.9rem;
     }
     footer a { color: var(--accent); text-decoration: none; }
-
-    /* Responsive */
-    @media(max-width: 900px) {
-      .container { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 <body>
   <header>
     <div class="brand">
-      <img src="assets/logo.svg" alt="JP&B Realty">
-      JP&B Realty
+      <img src="assets/logo.svg" alt="JP&B Realty"> JP&B Realty
     </div>
     <nav id="nav-menu">
       <a href="index.html">Home</a>
