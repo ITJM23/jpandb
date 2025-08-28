@@ -110,6 +110,7 @@
       overflow: hidden;
       box-shadow: 0 6px 20px rgba(0,0,0,0.08);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
     .property-card:hover {
       transform: translateY(-5px);
@@ -138,6 +139,64 @@
       font-size: 1.1rem;
     }
 
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 90%;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .modal h2 {
+      margin-top: 0;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* Gallery */
+    .gallery {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .gallery img {
+      width: 100%;
+      display: none;
+      border-radius: 10px;
+    }
+    .gallery img.active {
+      display: block;
+    }
+    .gallery .prev, .gallery .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .gallery .prev { left: 10px; }
+    .gallery .next { right: 10px; }
+
     /* Footer */
     footer {
       background: #111;
@@ -149,13 +208,11 @@
   </style>
 </head>
 <body>
-  <!-- Header with Responsive Navbar -->
+  <!-- Header -->
   <header>
     <a href="index.html" class="logo">JP&B Realty</a>
     <div class="menu-toggle" id="menuToggle">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
     <nav id="navMenu">
       <a href="index.html">Home</a>
@@ -188,7 +245,11 @@
 
   <!-- Listings -->
   <div class="listings-container" id="listings">
-    <div class="property-card" data-type="house" data-price="high" data-beds="3">
+    <div class="property-card" 
+      data-type="house" data-beds="3" data-price="6500000"
+      data-title="Modern Family House" 
+      data-desc="3 Bedrooms · 2 Bathrooms · Quezon City" 
+      data-images='["https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80","https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80"]'>
       <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80" alt="House">
       <div class="property-info">
         <h3>Modern Family House</h3>
@@ -197,7 +258,11 @@
       </div>
     </div>
 
-    <div class="property-card" data-type="condo" data-price="mid" data-beds="2">
+    <div class="property-card" 
+      data-type="condo" data-beds="2" data-price="3800000"
+      data-title="Condo Unit with City View" 
+      data-desc="2 Bedrooms · 1 Bathroom · Makati City" 
+      data-images='["https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80","https://images.unsplash.com/photo-1560185127-6ed189bf02c7?auto=format&fit=crop&w=1200&q=80"]'>
       <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80" alt="Condo">
       <div class="property-info">
         <h3>Condo Unit with City View</h3>
@@ -206,12 +271,32 @@
       </div>
     </div>
 
-    <div class="property-card" data-type="lot" data-price="low" data-beds="0">
+    <div class="property-card" 
+      data-type="lot" data-beds="0" data-price="1800000"
+      data-title="Residential Lot" 
+      data-desc="500 sqm · Antipolo" 
+      data-images='["https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80","https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=1200&q=80"]'>
       <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80" alt="Lot">
       <div class="property-info">
         <h3>Residential Lot</h3>
         <p>500 sqm · Antipolo</p>
         <p class="price">₱1,800,000</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="propertyModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+      <p><strong id="modalPrice"></strong></p>
+
+      <div class="gallery">
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+        <div id="galleryImages"></div>
       </div>
     </div>
   </div>
@@ -238,14 +323,28 @@
     function filterListings() {
       listings.forEach(card => {
         const type = card.dataset.type;
-        const price = card.dataset.price;
-        const beds = card.dataset.beds;
+        const price = parseInt(card.dataset.price, 10);
+        const beds = parseInt(card.dataset.beds, 10);
 
         let show = true;
 
-        if (typeFilter.value && type !== typeFilter.value) show = false;
-        if (priceFilter.value && price !== priceFilter.value) show = false;
-        if (bedsFilter.value && beds !== bedsFilter.value && !(bedsFilter.value === "3" && beds >= 3)) show = false;
+        // Type filter
+        if (typeFilter.value && type !== typeFilter.value) {
+          show = false;
+        }
+
+        // Price filter
+        if (priceFilter.value) {
+          if (priceFilter.value === "low" && price >= 2000000) show = false;
+          if (priceFilter.value === "mid" && (price < 2000000 || price > 5000000)) show = false;
+          if (priceFilter.value === "high" && price <= 5000000) show = false;
+        }
+
+        // Bedrooms filter
+        if (bedsFilter.value) {
+          if (bedsFilter.value === "3" && beds < 3) show = false;
+          else if (bedsFilter.value !== "3" && beds != bedsFilter.value) show = false;
+        }
 
         card.style.display = show ? 'block' : 'none';
       });
@@ -254,6 +353,55 @@
     typeFilter.addEventListener('change', filterListings);
     priceFilter.addEventListener('change', filterListings);
     bedsFilter.addEventListener('change', filterListings);
+
+    // Modal functionality
+    const modal = document.getElementById("propertyModal");
+    const closeModal = document.getElementById("closeModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalPrice = document.getElementById("modalPrice");
+    const galleryContainer = document.getElementById("galleryImages");
+    let currentIndex = 0, images = [];
+
+    listings.forEach(card => {
+      card.addEventListener("click", () => {
+        modalTitle.textContent = card.dataset.title;
+        modalDesc.textContent = card.dataset.desc;
+        modalPrice.textContent = "₱" + parseInt(card.dataset.price).toLocaleString();
+        images = JSON.parse(card.dataset.images);
+
+        galleryContainer.innerHTML = "";
+        images.forEach((src, i) => {
+          const img = document.createElement("img");
+          img.src = src;
+          if (i === 0) img.classList.add("active");
+          galleryContainer.appendChild(img);
+        });
+        currentIndex = 0;
+        modal.style.display = "flex";
+      });
+    });
+
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+    window.addEventListener("click", e => {
+      if (e.target === modal) modal.style.display = "none";
+    });
+
+    // Gallery controls
+    function showImage(index) {
+      const imgs = galleryContainer.querySelectorAll("img");
+      imgs.forEach((img, i) => img.classList.toggle("active", i === index));
+    }
+    document.querySelector(".gallery .prev").addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex);
+    });
+    document.querySelector(".gallery .next").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    });
   </script>
 </body>
 </html>
