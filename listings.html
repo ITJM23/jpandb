@@ -3,194 +3,210 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Listings – JP&B Realty</title>
+  <title>Listings - JP&B Realty</title>
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    :root {
-      --accent: #FFD600;
-      --bg: #f8f9fa;
-      --card: #fff;
-      --text: #111;
-      --muted: #6c757d;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+      color: #333;
     }
-    * {margin: 0; padding: 0; box-sizing: border-box;}
-    body {font-family: Arial, sans-serif; background: var(--bg); color: var(--text);}
 
     header {
-      position: sticky; top: 0; background: #fff;
-      border-bottom: 1px solid #ddd; padding: 1rem 2rem;
-      display: flex; justify-content: space-between; align-items: center;
-      z-index: 100;
+      background: #111;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    header h1 {font-size: 1.5rem;}
-    nav a {margin-left: 1rem; text-decoration: none; color: var(--text);}
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #FFD600;
+      text-decoration: none;
+    }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #FFD600;
+    }
 
     .filter-bar {
-      background: #fff; padding: 1rem 2rem;
-      display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
-      border-bottom: 1px solid #ddd;
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 64px;
+      z-index: 999;
     }
-    .filter-bar label {font-size: 0.9rem; font-weight: bold;}
-    .filter-bar select, .filter-bar input {
-      padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;
-    }
-    .filter-bar button {
-      padding: 0.5rem 1rem;
-      background: var(--accent); border: none; border-radius: 5px;
-      cursor: pointer; font-weight: bold;
+    .filter-bar select {
+      padding: 0.6rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
     }
 
-    .listings {padding: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.5rem;}
-    .property-card {
-      background: var(--card); border-radius: 10px; overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .listings-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
     }
-    .property-card:hover {transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1);}
-    .property-card img {width: 100%; height: 200px; object-fit: cover;}
-    .property-info {padding: 1rem; line-height: 1.5;}
-    .property-info h3 {font-size: 1.2rem; margin-bottom: 0.5rem;}
-    .property-info p {color: var(--muted); font-size: 0.9rem;}
-    .price {font-size: 1.1rem; font-weight: bold; margin-top: 0.5rem; color: var(--text);}
-    
-    .no-results {
-      display: none; text-align: center; font-size: 1.2rem; color: var(--muted);
-      margin: 2rem;
+    .property-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .property-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+    .property-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .property-info {
+      padding: 1rem;
+    }
+    .property-info h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #111;
+    }
+    .property-info p {
+      margin: 0.5rem 0;
+      color: #555;
+    }
+    .property-info .price {
+      font-weight: bold;
+      color: #FFD600;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .filter-bar {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>JP&amp;B Realty</h1>
+    <a href="index.html" class="logo">JP&B Realty</a>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Listings</a>
-      <a href="#">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="listings.html">Listings</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </header>
 
   <div class="filter-bar">
-    <label for="searchInput">Search:</label>
-    <input type="text" id="searchInput" placeholder="Title or Location">
-
-    <label for="filterType">Type:</label>
     <select id="filterType">
-      <option value="">All</option>
+      <option value="">All Types</option>
       <option value="house">House</option>
       <option value="condo">Condo</option>
       <option value="lot">Lot</option>
     </select>
-
-    <label for="filterPrice">Price:</label>
     <select id="filterPrice">
-      <option value="">All</option>
+      <option value="">All Prices</option>
       <option value="low">Below ₱2M</option>
-      <option value="mid">₱2M–₱5M</option>
+      <option value="mid">₱2M - ₱5M</option>
       <option value="high">Above ₱5M</option>
     </select>
-
-    <label for="filterBeds">Bedrooms:</label>
     <select id="filterBeds">
-      <option value="">All</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3+</option>
+      <option value="">Any Bedrooms</option>
+      <option value="1">1 Bedroom</option>
+      <option value="2">2 Bedrooms</option>
+      <option value="3">3+ Bedrooms</option>
     </select>
-
-    <button id="resetBtn">Reset</button>
   </div>
 
-  <div class="listings">
-    <div class="property-card" data-type="house" data-price="4500000" data-beds="3">
-      <img src="https://via.placeholder.com/400x200" alt="House">
+  <div class="listings-container" id="listings">
+    <!-- Example property cards -->
+    <div class="property-card" data-type="house" data-price="high" data-beds="3">
+      <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80" alt="House">
       <div class="property-info">
-        <h3>Modern House in Manila</h3>
-        <p>3 Bedrooms · 2 Bathrooms · Manila</p>
-        <p class="price">₱4,500,000</p>
+        <h3>Modern Family House</h3>
+        <p>3 Bedrooms · 2 Bathrooms · Quezon City</p>
+        <p class="price">₱6,500,000</p>
       </div>
     </div>
-    <div class="property-card" data-type="condo" data-price="1800000" data-beds="1">
-      <img src="https://via.placeholder.com/400x200" alt="Condo">
+
+    <div class="property-card" data-type="condo" data-price="mid" data-beds="2">
+      <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80" alt="Condo">
       <div class="property-info">
-        <h3>Cozy Condo in Makati</h3>
-        <p>1 Bedroom · 1 Bathroom · Makati</p>
+        <h3>Condo Unit with City View</h3>
+        <p>2 Bedrooms · 1 Bathroom · Makati City</p>
+        <p class="price">₱3,800,000</p>
+      </div>
+    </div>
+
+    <div class="property-card" data-type="lot" data-price="low" data-beds="0">
+      <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80" alt="Lot">
+      <div class="property-info">
+        <h3>Residential Lot</h3>
+        <p>500 sqm · Antipolo</p>
         <p class="price">₱1,800,000</p>
       </div>
     </div>
-    <div class="property-card" data-type="lot" data-price="2500000" data-beds="0">
-      <img src="https://via.placeholder.com/400x200" alt="Lot">
-      <div class="property-info">
-        <h3>Residential Lot in Cavite</h3>
-        <p>Lot Area: 120sqm · Cavite</p>
-        <p class="price">₱2,500,000</p>
-      </div>
-    </div>
   </div>
 
-  <div class="no-results">No results found. Try adjusting your filters.</div>
+  <footer>
+    <p>&copy; 2025 JP&B Realty. All rights reserved.</p>
+  </footer>
 
   <script>
     const typeFilter = document.getElementById('filterType');
     const priceFilter = document.getElementById('filterPrice');
     const bedsFilter = document.getElementById('filterBeds');
-    const searchInput = document.getElementById('searchInput');
-    const resetBtn = document.getElementById('resetBtn');
-    const cards = document.querySelectorAll('.property-card');
-    const noResults = document.querySelector('.no-results');
+    const listings = document.querySelectorAll('.property-card');
 
-    function filterProperties() {
-      let visibleCount = 0;
-      const searchVal = searchInput.value.toLowerCase();
-
-      cards.forEach(card => {
+    function filterListings() {
+      listings.forEach(card => {
         const type = card.dataset.type;
-        const price = parseInt(card.dataset.price);
-        const beds = parseInt(card.dataset.beds);
+        const price = card.dataset.price;
+        const beds = card.dataset.beds;
 
         let show = true;
 
-        // Type filter
         if (typeFilter.value && type !== typeFilter.value) show = false;
+        if (priceFilter.value && price !== priceFilter.value) show = false;
+        if (bedsFilter.value && beds !== bedsFilter.value && !(bedsFilter.value === "3" && beds >= 3)) show = false;
 
-        // Price filter
-        if (priceFilter.value) {
-          if (priceFilter.value === "low" && price >= 2000000) show = false;
-          if (priceFilter.value === "mid" && (price < 2000000 || price > 5000000)) show = false;
-          if (priceFilter.value === "high" && price <= 5000000) show = false;
-        }
-
-        // Bedrooms filter
-        if (bedsFilter.value) {
-          if (bedsFilter.value === "3" && beds < 3) show = false;
-          else if (bedsFilter.value !== "3" && beds !== parseInt(bedsFilter.value)) show = false;
-        }
-
-        // Search filter
-        const title = card.querySelector("h3").textContent.toLowerCase();
-        const location = card.querySelector("p").textContent.toLowerCase();
-        if (searchVal && !(title.includes(searchVal) || location.includes(searchVal))) {
-          show = false;
-        }
-
-        card.style.display = show ? "" : "none";
-        if (show) visibleCount++;
+        card.style.display = show ? 'block' : 'none';
       });
-
-      // Show "No results" if nothing is visible
-      noResults.style.display = visibleCount === 0 ? "block" : "none";
     }
 
-    // Event listeners
-    [typeFilter, priceFilter, bedsFilter, searchInput].forEach(el => el.addEventListener('input', filterProperties));
-    resetBtn.addEventListener('click', () => {
-      typeFilter.value = "";
-      priceFilter.value = "";
-      bedsFilter.value = "";
-      searchInput.value = "";
-      filterProperties();
-    });
-
-    // Initial run
-    filterProperties();
+    typeFilter.addEventListener('change', filterListings);
+    priceFilter.addEventListener('change', filterListings);
+    bedsFilter.addEventListener('change', filterListings);
   </script>
 </body>
 </html>
